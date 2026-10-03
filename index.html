@@ -220,8 +220,8 @@
       and <strong>Notes</strong> as-is. <strong>Item Name</strong> is split on <code>|</code> so each item gets its own
       row, lined up with its matching <strong># of Allocation</strong> value — items with <strong>0 allocation are
       left out</strong>. Sums <strong>Outstanding Balance</strong>
-      → Refund per order. Rows are sorted A–Z by email. Order-level fields and Refund appear only on an order's first
-      item row; when the same email appears on multiple orders, a <strong>TOTAL REFUND</strong> column shows the
+      → Refund per order. Rows are sorted A–Z by email. Order Number, Customer Name, Email, Mobile, Shipping Method and Full Address are repeated on every item row;
+      Landmark, Notes and Refund appear only on an order's first item row; when the same email appears on multiple orders, a <strong>TOTAL REFUND</strong> column shows the
       combined Refund for that email on the very first row only (nothing is merged — the extra rows just stay blank
       in those columns). Orders whose email's TOTAL REFUND is <strong>not negative</strong> (zero or positive) get a
       light red row highlight.
@@ -442,9 +442,10 @@ processBtn.addEventListener('click', () => {
     }
 
     // Each order is also split into one row per item (Item Name / # of Allocation
-    // are '|'-separated and line up 1:1); the order-level fields and Refund are
-    // shown only on that order's first item row so nothing is double-counted or
-    // repeated. The TOTAL REFUND for an email group is likewise shown only on the
+    // are '|'-separated and line up 1:1); Order Number, Customer Name, Email,
+    // Mobile, Shipping Method and Full Address repeat on every item row, while
+    // Landmark, Notes and Refund are shown only on the order's first item row so
+    // nothing is double-counted. The TOTAL REFUND for an email group is likewise shown only on the
     // very first output row of that group.
     outputRows = [OUTPUT_HEADERS];
     rowHighlights = [];
@@ -477,12 +478,12 @@ processBtn.addEventListener('click', () => {
       for (let k = 0; k < lineCount; k++){
         const isFirstLine = (k === 0);
         outputRows.push([
-          isFirstLine ? built[i].orderNumber : '',
-          isFirstLine ? built[i].name : '',
-          isFirstLine ? built[i].email : '',
-          isFirstLine ? built[i].mobile : '',
-          isFirstLine ? built[i].shippingMethod : '',
-          isFirstLine ? built[i].fullAddress : '',
+          built[i].orderNumber,
+          built[i].name,
+          built[i].email,
+          built[i].mobile,
+          built[i].shippingMethod,
+          built[i].fullAddress,
           isFirstLine ? built[i].landmark : '',
           isFirstLine ? built[i].notes : '',
           items[k] !== undefined ? items[k] : '',
